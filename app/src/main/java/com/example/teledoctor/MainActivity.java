@@ -1,18 +1,15 @@
 package com.example.teledoctor;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.ViewPager;
-
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -54,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         TextView toolbar_title=mToolbar.findViewById(R.id.toolbar_title);
         toolbar_title.setText(getSupportActionBar().getTitle());
-        getSupportActionBar().setTitle(null);
+        getSupportActionBar().setTitle("");
 
         myViewPager = (ViewPager) findViewById(R.id.main_tabs_pager);
         myTabsAccessorAdapter = new TabsAccessorAdapter(getSupportFragmentManager());
@@ -62,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         myTabLayout = (TabLayout) findViewById(R.id.main_tab);
         myTabLayout.setupWithViewPager(myViewPager);
+
 
     }
 
@@ -76,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         else
         {
 
-            //VerifyUserExistance();
+            VerifyUserExistance();
         }
 
 }
@@ -84,17 +82,25 @@ public class MainActivity extends AppCompatActivity {
     private void VerifyUserExistance()
     {
         String currentUserId = myAuth.getCurrentUser().getUid();
-        RootRef.child(currentUserId).addValueEventListener(new ValueEventListener() {
+        //String currentUserId = myAuth.getCurrentUser().getUid();
+
+        RootRef.child("Users").child(currentUserId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if((dataSnapshot.child("name").exists()))//if the user already create an account can edit username and photo
+                //if(true)//if the user already create an account can edit username and photo
                 {
                     Toast.makeText(MainActivity.this,"Welcome",Toast.LENGTH_SHORT).show();
-
+                    //SendUserToSettingActivity();
                 }
                 else
                 {
-                    SendUserToSettingActivity();//username and pro pic is not set yet he is a new user
+                    Toast.makeText(MainActivity.this,"Ki ar komu vai",Toast.LENGTH_SHORT).show();
+
+                    SendUserToSettingActivity();
+
+
+                    //username and pro pic is not set yet he is a new user
                 }
 
             }
@@ -132,6 +138,9 @@ public class MainActivity extends AppCompatActivity {
 
         if(item.getItemId() == R.id.menu_settings);
         {
+            //Toast.makeText(MainActivity.this,"Joto jhamela settings",Toast.LENGTH_SHORT).show();
+
+            //SendUserToMainActivity();
             SendUserToSettingActivity();
         }
         return true;
@@ -148,6 +157,14 @@ public class MainActivity extends AppCompatActivity {
         Intent settingIntent = new Intent(MainActivity.this,SettingsActivity.class);
        //it is for no exit on pressing backbutton without providing username and pro image user cannot access main activity
         startActivity (settingIntent);
+
+    }
+    private void SendUserToMainActivity() {
+        Intent mainIntent = new Intent(MainActivity.this,MainActivity.class);//going from login activity to main activity
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);//it is for no exit on pressing backbutton
+        //it means that if uder is logged in he cannot go back to log in he have to sign out first
+        startActivity (mainIntent);
+        finish();
 
     }
 }
