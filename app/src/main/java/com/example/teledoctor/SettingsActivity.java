@@ -134,7 +134,7 @@ public class SettingsActivity extends AppCompatActivity
 
 
 
-/*
+
 
         RootRef.child("Users").child( mAuth.getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
@@ -167,7 +167,7 @@ public class SettingsActivity extends AppCompatActivity
                     }
                 });
 
- */
+
     }
     private void SendUserToMainActivity() {
         Intent mainIntent = new Intent(SettingsActivity.this,MainActivity.class);//going from login activity to main activity

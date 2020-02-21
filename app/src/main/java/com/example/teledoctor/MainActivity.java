@@ -138,12 +138,12 @@ public class MainActivity extends AppCompatActivity {
             SendUserToLoginActivity();
         }
 
-        if(item.getItemId() == R.id.menu_find_doctor)
+        else if(item.getItemId() == R.id.menu_find_doctor)
         {
 
         }
 
-        if(item.getItemId() == R.id.menu_settings)
+        else if(item.getItemId() == R.id.menu_settings)
         {
             //Toast.makeText(MainActivity.this,"Joto jhamela settings",Toast.LENGTH_SHORT).show();
 
