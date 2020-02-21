@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,7 +35,6 @@ public class SettingsActivity extends AppCompatActivity
     private DatabaseReference RootRef;
     private Toolbar SettingsToolBar;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -43,8 +43,18 @@ public class SettingsActivity extends AppCompatActivity
 
         mAuth = FirebaseAuth.getInstance();
 
+        FirebaseUser user = mAuth.getCurrentUser();
 
-        currentUserId = mAuth.getCurrentUser().getUid();
+        if (user != null) {
+            currentUserId = user.getUid();
+            System.out.println("current user paise *****************************" + currentUserId);
+
+            // Use currentUserID
+        } else
+            System.out.println("current user paini re *****************************");
+
+
+        //currentUserId = mAuth.getCurrentUser().getUid();
 
 
 
@@ -124,7 +134,7 @@ public class SettingsActivity extends AppCompatActivity
 
 
 
-
+/*
 
         RootRef.child("Users").child( mAuth.getCurrentUser().getUid())
                 .addValueEventListener(new ValueEventListener() {
@@ -156,6 +166,8 @@ public class SettingsActivity extends AppCompatActivity
 
                     }
                 });
+
+ */
     }
     private void SendUserToMainActivity() {
         Intent mainIntent = new Intent(SettingsActivity.this,MainActivity.class);//going from login activity to main activity
@@ -172,6 +184,7 @@ public class SettingsActivity extends AppCompatActivity
     startActivity (logIntent);
     finish();
 }
+
 
 
 }

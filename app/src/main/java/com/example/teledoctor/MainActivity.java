@@ -44,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
 
         myAuth = FirebaseAuth.getInstance();
         currentUser = myAuth.getCurrentUser();//now if the user is logeed in he dont nedd to log again
+        if (currentUser != null) {
+            String user = currentUser.getUid();
+            System.out.println("current user paise *****************************" + user);
+
+            // Use currentUserID
+        } else
+            System.out.println("current user paini re *****************************");
+
         RootRef = FirebaseDatabase.getInstance().getReference();
 
 
@@ -125,18 +133,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
-        if(item.getItemId() == R.id.menu_logout);
-        {
+        if(item.getItemId() == R.id.menu_logout){
             myAuth.signOut();
             SendUserToLoginActivity();
         }
 
-        if(item.getItemId() == R.id.menu_find_doctor);
+        if(item.getItemId() == R.id.menu_find_doctor)
         {
 
         }
 
-        if(item.getItemId() == R.id.menu_settings);
+        if(item.getItemId() == R.id.menu_settings)
         {
             //Toast.makeText(MainActivity.this,"Joto jhamela settings",Toast.LENGTH_SHORT).show();
 
