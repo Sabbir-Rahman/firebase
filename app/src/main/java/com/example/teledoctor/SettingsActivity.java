@@ -41,28 +41,11 @@ public class SettingsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        //mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
 
-        //currentUserId = mAuth.getCurrentUser().getUid();
-        mAuth=FirebaseAuth.getInstance();
-        FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged( FirebaseAuth firebaseAuth) {
+        currentUserId = mAuth.getCurrentUser().getUid();
 
-
-                if (firebaseAuth.getCurrentUser() == null) {
-
-                    SendUserToLoginActivity();
-
-                }
-                else
-
-                     currentUserId = mAuth.getCurrentUser().getUid();
-
-
-            }
-        };
 
 
         RootRef = FirebaseDatabase.getInstance().getReference();
@@ -90,10 +73,8 @@ public class SettingsActivity extends AppCompatActivity
         userStatus =(EditText) findViewById(R.id.profile_status);
         userProfileImage =(CircleImageView) findViewById(R.id.profile_image);
         SettingsToolBar = (Toolbar) findViewById(R.id.menu_settings);
-        //setSupportActionBar(SettingsToolBar);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setDisplayShowCustomEnabled(true);
-        //getSupportActionBar().setTitle("Account Settings");
+        setSupportActionBar(SettingsToolBar);
+        
     }
 
    private void UpdateSettings() {
@@ -107,25 +88,8 @@ public class SettingsActivity extends AppCompatActivity
        if (TextUtils.isEmpty(setUserStatus)) {
            Toast.makeText(this, "Please enter your status", Toast.LENGTH_SHORT).show();
        } else {
-          //String currentUserId = mAuth.getCurrentUser().getUid();
+
            Toast.makeText(this, "Current user"+currentUserId, Toast.LENGTH_SHORT).show();
-           /*mAuth=FirebaseAuth.getInstance();
-           FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
-               @Override
-               public void onAuthStateChanged( FirebaseAuth firebaseAuth) {
-
-
-                   if (firebaseAuth.getCurrentUser() == null) {
-
-                       SendUserToLoginActivity();
-
-                   }
-                   else
-                       currentUserId = mAuth.getCurrentUser().getUid();
-
-
-               }
-           };*/
 
            HashMap<String, String> profileMap = new HashMap<>();
            profileMap.put("uid", currentUserId);
@@ -157,24 +121,8 @@ public class SettingsActivity extends AppCompatActivity
 
     private void RetrieveUserInfo() {
 
-        //String currentUserId = mAuth.getCurrentUser().getUid();
-        mAuth=FirebaseAuth.getInstance();
-        /*FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged( FirebaseAuth firebaseAuth) {
 
 
-                if (firebaseAuth.getCurrentUser() == null) {
-
-                    SendUserToLoginActivity();
-
-                }
-                else
-                    currentUserId = mAuth.getCurrentUser().getUid();
-
-
-            }
-        };*/
 
 
 
