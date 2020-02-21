@@ -74,7 +74,7 @@ public class SettingsActivity extends AppCompatActivity
         userProfileImage =(CircleImageView) findViewById(R.id.profile_image);
         SettingsToolBar = (Toolbar) findViewById(R.id.menu_settings);
         setSupportActionBar(SettingsToolBar);
-        
+
     }
 
    private void UpdateSettings() {
